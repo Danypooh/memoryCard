@@ -1,23 +1,23 @@
 import { useState } from "react";
 
-function useGameLogic(mockButtons) {
-  const [selectedButtons, setSelectedButtons] = useState([]);
+function useGameLogic(mockCards) {
+  const [selectedCards, setSelectedCards] = useState([]);
   const [currentScore, setCurrentScore] = useState(0);
   const [highestScore, setHighestScore] = useState(0);
 
-  const checkPickedButton = (id) => {
-    if (selectedButtons.includes(id)) {
+  const checkPickedCard = (id) => {
+    if (selectedCards.includes(id)) {
       resetGame();
     } else {
       const newScore = currentScore + 1;
       setCurrentScore(newScore);
-      setSelectedButtons([...selectedButtons, id]);
+      setSelectedCards([...selectedCards, id]);
 
       if (newScore > highestScore) {
         setHighestScore(newScore);
       }
 
-      if (newScore === mockButtons.length) {
+      if (newScore === mockCards.length) {
         alert("You win!");
         resetGame();
       }
@@ -26,10 +26,10 @@ function useGameLogic(mockButtons) {
 
   const resetGame = () => {
     setCurrentScore(0);
-    setSelectedButtons([]);
+    setSelectedCards([]);
   };
 
-  return { checkPickedButton, currentScore, highestScore };
+  return { checkPickedCard, currentScore, highestScore };
 }
 
 export { useGameLogic };

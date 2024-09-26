@@ -40,3 +40,12 @@
 .read-the-docs {
   color: #888;
 }
+
+.card-img-top {
+  pointer-events: none;
+}
+
+.card:hover {
+  cursor: pointer;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+}
