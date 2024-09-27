@@ -11,7 +11,6 @@ function App() {
             Select as many unique cards as you can.
             You loose if you repeat a selection`,
   };
-
   const { cards, loading } = useFetchCards(
     "https://pokeapi.co/api/v2/pokemon?limit=12"
   );
