@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function useGameLogic(mockCards) {
+function useGameLogic(cards) {
   const [selectedCards, setSelectedCards] = useState([]);
   const [currentScore, setCurrentScore] = useState(0);
   const [highestScore, setHighestScore] = useState(0);
+  const [shuffledCards, setShuffledCards] = useState([]);
+
+  useEffect(() => {
+    if (cards.length > 0) {
+      setShuffledCards(shuffleCards(cards));
+    }
+  }, [cards]);
 
   const checkPickedCard = (id) => {
+    setShuffledCards(shuffleCards(cards));
     if (selectedCards.includes(id)) {
       resetGame();
     } else {
@@ -17,11 +25,15 @@ function useGameLogic(mockCards) {
         setHighestScore(newScore);
       }
 
-      if (newScore === mockCards.length) {
+      if (newScore === cards.length) {
         alert("You win!");
         resetGame();
       }
     }
+  };
+
+  const shuffleCards = (cardsArray) => {
+    return cardsArray.sort(() => Math.random() - 0.5);
   };
 
   const resetGame = () => {
