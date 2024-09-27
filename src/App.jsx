@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
 import "./App.css";
 import { Header } from "./components/Header";
 import { Scoreboard } from "./components/Scoreboard";
 import { Card } from "./components/Card";
+import { useFetchCards } from "./hooks/useFetchCards";
 import { useGameLogic } from "./hooks/useGameLogic";
 
 function App() {
@@ -13,27 +13,24 @@ function App() {
             You loose if you repeat a selection`,
   };
 
-  const mockButtons = [
-    { id: 1, name: "a button", image: "img" },
-    { id: 2, name: "other button", image: "img" },
-    { id: 3, name: "one more button", image: "img" },
-    { id: 4, name: "last button", image: "img" },
-  ];
+  const { cards, loading } = useFetchCards(
+    "https://pokeapi.co/api/v2/pokemon?limit=12"
+  );
+  const { currentScore, highestScore, checkPickedCard } = useGameLogic(cards);
 
-  const { currentScore, highestScore, checkPickedCard } =
-    useGameLogic(mockButtons);
+  if (loading) return <p>Loading...</p>;
 
   return (
     <>
       <Header title={headerData.title} body={headerData.body} />
       <Scoreboard currentScore={currentScore} highestScore={highestScore} />
       <div className="card-grid">
-        {mockButtons.map((card) => (
+        {cards.map((card) => (
           <Card
             key={card.id}
             id={card.id}
             name={card.name}
-            image={""}
+            image={card.image}
             onCardPick={checkPickedCard}
           />
         ))}

@@ -33,7 +33,16 @@
   }
 }
 
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px; /* Adjust gap between cards */
+  margin: 20px;
+}
+
 .card {
+  width: 100%;
+  max-width: 400px;
   padding: 2em;
 }
 
